@@ -1,0 +1,30 @@
+# Ignore macOS Finder metadata
+.DS_Store
+
+# Ignore R session stuff
+.Rhistory
+.RData
+.Rproj.user/
+
+# Ignore large data files
+data/*.RData
+data/*.csv
+data/*.xlsx
+
+# Ignore generated outputs
+results/*
+!results/README.md   # keep an empty README so folder is tracked
+
+# Ignore benchmarks and tests (local-only code)
+benchmarks/
+!benchmarks/.gitkeep
+tests/
+!tests/.gitkeep
+deprecated/
+
+# Ignore TeX auxiliaries from TikZ or LaTeX compilation
+*.aux
+*.log
+*.toc
+*.out
+*.synctex.gz
