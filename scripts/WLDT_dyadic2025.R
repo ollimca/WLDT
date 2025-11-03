@@ -17,14 +17,17 @@ source("R/criteria.R")
 source("R/proportion.R")
 source("R/reporting.R")
 
+# To time the code
+tic <- function() assign(".tic", Sys.time(), envir = .GlobalEnv)
+toc <- function() print(Sys.time() - get(".tic", envir = .GlobalEnv))
 
 #########################################################################################################################################
 # MAIN
 #########################################################################################################################################
-
+tic()
 ######################
 # Parameters to set 
-Criterion = dyadic #function(...) dyadic (..., lag1_dir = "<=", lag0_dir = ">=")
+Criterion = function(...) dyadic (..., lag1_dir = "<", lag0_dir = ">")
 intRep = 10000      # Number of permutations  !! 10000 in the paper !!
 ######################
 
@@ -60,10 +63,12 @@ permCorrect <- colMeans(Criterion(
                                     )
                        )
 pihat <-  mean(obsCorrect)                                 # Statistic: Proportion of correct observed bid revisions                                                      
+pi0   <- mean(permCorrect)                                 # Proportion of correct bid revisions under the null  
+pimed   <- median(permCorrect)                             # Median of correct bid revisions under the null  
 Pvalue_all = sum( permCorrect > pihat)/length(permCorrect) # P-value
 
 ############################################
-## Nonparametric and t-tests on the locatin parameter
+## Nonparametric and t-tests on the location parameter
 
 # vector of spreads for each buyer
 esse <- sapply(unique(df0$ID), function(indx){ tmp.df = subset(df0, df0$ID==indx); findSpread(tmp.df$accept, tmp.df$p, criterion=Criterion, repetitions = intRep) })
@@ -84,10 +89,12 @@ descriptive.stats.print()
 ## Entirely permutation-based test
 cat("Permutation-based test\n")
 cat(rep("*", nchar("Permutation-based test")), "\n", sep="")
-cat(sprintf("%-*s\t%-*s\n", 20, paste("stat =", format(pihat, digits=1, nsmall=3)), 20, paste("p-value =", Pvalue_all)))
+cat(sprintf("%-*s\t%-*s\n", 20, paste("pi0 =", format(pi0, digits=1, nsmall=3)), 20, paste("pimed =", format(pimed, digits=1, nsmall=3))))
+cat(sprintf("%-*s\t%-*s\n", 20, paste("pihat =", format(pihat, digits=1, nsmall=3)), 20, paste("p-value =", Pvalue_all)))
 cat("\n")
 
 # Tests on mean spread
 
 a.test.print(T.test)
 
+toc()
