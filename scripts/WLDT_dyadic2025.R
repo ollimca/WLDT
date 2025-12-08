@@ -62,10 +62,11 @@ permCorrect <- colMeans(Criterion(
                             delta.bids = stackedPlayers[, "bids.change"]
                                     )
                        )
-pihat <-  mean(obsCorrect)                                 # Statistic: Proportion of correct observed bid revisions                                                      
-pi0   <- mean(permCorrect)                                 # Proportion of correct bid revisions under the null  
-pimed   <- median(permCorrect)                             # Median of correct bid revisions under the null  
-Pvalue_all = sum( permCorrect > pihat)/length(permCorrect) # P-value
+pihat <-  mean(obsCorrect)                                  # Statistic: Proportion of correct observed bid revisions                                                      
+pi0   <- mean(permCorrect)                                  # Proportion of correct bid revisions under the null  
+pimed   <- median(permCorrect)                              # Median of correct bid revisions under the null  
+Pvalue_all = (sum( permCorrect >= pihat) + 1)/
+                    (length(permCorrect) + 1)               # P-value according to Phipson and Smyth (2010): Permutation P-values Should Never Be Zero
 
 ############################################
 ## Nonparametric and t-tests on the location parameter
@@ -90,7 +91,7 @@ descriptive.stats.print()
 cat("Permutation-based test\n")
 cat(rep("*", nchar("Permutation-based test")), "\n", sep="")
 cat(sprintf("%-*s\t%-*s\n", 20, paste("pi0 =", format(pi0, digits=1, nsmall=3)), 20, paste("pimed =", format(pimed, digits=1, nsmall=3))))
-cat(sprintf("%-*s\t%-*s\n", 20, paste("pihat =", format(pihat, digits=1, nsmall=3)), 20, paste("p-value =", Pvalue_all)))
+cat(sprintf("%-*s\t%-*s\n", 20, paste("pihat =", format(pihat, digits=1, nsmall=3)), 20, paste("p-value =", format(Pvalue_all, digits=1, nsmall=3))))
 cat("\n")
 
 # Tests on mean spread
