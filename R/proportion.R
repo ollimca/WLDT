@@ -70,3 +70,4 @@ proportionCorrect <- function(matr.values, bids, criterion) {
   
   return(colSums(as.matrix(correct)) / length(bids.change))
 }
+

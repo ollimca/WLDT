@@ -10,6 +10,8 @@
 data/*.RData
 data/*.csv
 data/*.xlsx
+data/*
+!data/README.md
 
 # Ignore generated outputs
 results/*
@@ -21,6 +23,9 @@ benchmarks/
 tests/
 !tests/.gitkeep
 deprecated/
+
+# Local-only documentation
+README-local.md
 
 # Ignore TeX auxiliaries from TikZ or LaTeX compilation
 *.aux

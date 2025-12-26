@@ -16,7 +16,3 @@ LineEndingConversion: Posix
 
 BuildType: Package
 PackageUseDevtools: Yes
-
-RootDirectory: .
-SaveHistory: No
-VCS: Git

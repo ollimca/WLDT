@@ -83,8 +83,10 @@ descriptive.stats.print <- function() {
 #------------------------------------------------------------
 correct.dist.print <- function() {
   vc.df <- data.frame(permCorrect)
-  
-  tikzDevice::tikz("density_plot.tex", width = 6, height = 3.5)
+  if (!dir.exists("results")) {
+    dir.create("results")
+  }
+  tikzDevice::tikz("results/density_plot.tex", width = 6, height = 3.5)
   
   plot <- ggplot2::ggplot(vc.df, ggplot2::aes(x = permCorrect)) +
     ggplot2::geom_density(stat = "density", n = 200, adjust = 2,

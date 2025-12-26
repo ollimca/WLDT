@@ -1,9 +1,9 @@
 ---
-title: "WLDT Dyadic Revision Project"
+title: Code for the reproducibility of the results in the paper The Archer in the Mist: The Acquiring-a-Company game and Weak Learning Direction Theory
 output: github_document
 ---
 
-## 📘 Project Overview
+## Project Overview
 
 This repository contains the analysis and simulation code for the **Weak Learning Direction Theory (WLDT) Dyadic Revision Project**.  
 The code is structured for clarity, reproducibility, and easy extension.
@@ -14,33 +14,34 @@ The code is structured for clarity, reproducibility, and easy extension.
 |:--|:--|
 | **R/** | Core reusable R functions grouped by purpose (criteria, proportion/spread calculations, and reporting). |
 | **scripts/** | Main analysis scripts (entry points for reproducing results). |
-| **data/** | Raw input data files (not tracked by Git; see `.gitignore`). |
-| **results/** | Generated figures, tables, and output files (ignored by Git except for `README.md`). |
-| **tests/** | Local unit and randomized tests for verifying function correctness (ignored by Git). |
-| **benchmarks/** | Performance benchmarks used during development (ignored by Git). |
-| **deprecated/** | Archived or legacy functions retained for reference. |
+|**data** | Not included — place the required raw data files here after obtaining them from the original authors. |
 
 ---
 
-## ⚙️ How to Run
+### Data Availability
 
-To reproduce the main analysis:
+The dataset required to run the analysis is **not included in this repository**.
+
+To obtain the data, please contact the authors of the original study:
+
+Di Cagno, D., Galliera, A., Güth, W., Pace, N., & Panaccione, L. (2017).
+*Experience and gender effects in acquisition experiment with value messages*.
+**Small Business Economics, 48**(1), 71–97.
+[https://doi.org/10.1007/s11187-016-9766-1](https://doi.org/10.1007/s11187-016-9766-1)
+
+
+Once obtained, place the data files in the `data/` folder as described in the folder structure above.
+
+
+
+## How to Run
+
+To reproduce the results shown in **Table 1**, **Table 2**, and **Figure 5** of the paper:
 
 ```r
-# Install required packages (if needed)
-packages <- c("dplyr", "BSDA", "ggplot2", "tikzDevice")
-install.packages(setdiff(packages, rownames(installed.packages())))
-
-# Load packages
-library(dplyr)
-library(BSDA)
-library(ggplot2)
-library(tikzDevice)
-
-# Source project functions
-source("R/criteria.R")
-source("R/proportion.R")
-source("R/reporting.R")
-
-# Run the main analysis script
+# Run the main analysis script for Tables 1 and 2.
+# (Uncomment `correct.dist.print()` inside the script to generate the TikZ file for Figure 4 in results/density_plot.tex)
 source("scripts/WLDT_dyadic2025.R")
+
+# Run this script to generate the output table used to build Figure 5
+source("scripts/WLDT_dyadic2025_q.R")
