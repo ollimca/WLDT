@@ -1,7 +1,3 @@
----
-title: Code for the reproducibility of the results in the paper The Archer in the Mist: The Acquiring-a-Company game and Weak Learning Direction Theory
-output: github_document
----
 
 ## Project Overview
 
